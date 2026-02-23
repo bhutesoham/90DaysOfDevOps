@@ -1,250 +1,154 @@
-📘 Linux Commands for DevOps — Pareto Guide (80/20 Rule)
-🎯 Objective
+# 📘 Linux Commands for DevOps — Pareto Guide (80/20 Rule)
 
-In DevOps, you do not need to master every Linux command.
-Roughly 20% of Linux commands handle 80% of daily DevOps work.
+## 🎯 Objective
+
+In DevOps, you do **not** need to master every Linux command.  
+Roughly **20% of Linux commands handle 80% of daily DevOps work**.
 
 This guide prioritizes:
 
-High-frequency commands used in real DevOps workflows
+- High-frequency commands used in real DevOps workflows
+- Commands relevant to CI/CD, containers, servers, logs, networking, automation
+- Practical usage over theoretical depth
 
-Commands relevant to CI/CD, containers, servers, logs, networking, automation
+No fluff. Only commonly used tools in production environments.
 
-Practical usage over theoretical depth
+---
 
-No fluff. No hallucination. Only commonly used tools in production environments.
+# 🥇 Tier 1 — The Critical 20% (Used Daily)
 
-🥇 Tier 1 — The Critical 20% (Used Daily)
+## 📂 File & Directory Management
 
-These commands form the core toolkit for DevOps engineers.
+| Command | Why It Matters |
+|----------|---------------|
+| `ls` | Inspect files |
+| `cd` | Navigate directories |
+| `pwd` | Confirm current directory |
+| `cp` | Copy files |
+| `mv` | Move/rename files |
+| `rm` | Delete files |
+| `mkdir` | Create directories |
+| `find` | Locate files in large systems |
 
-📂 File & Directory Management
-Command	Why It Matters
-ls	Inspect files
-cd	Navigate directories
-pwd	Confirm current directory
-cp	Copy files
-mv	Move/rename files
-rm	Delete files
-mkdir	Create directories
-find	Locate files in large systems
+Used constantly in:
+- CI pipelines
+- Docker builds
+- Server troubleshooting
+- Deployment scripts
 
-These are used constantly in:
+---
 
-CI pipelines
+## 📄 File Viewing & Text Processing
 
-Docker builds
+| Command | Use Case |
+|----------|----------|
+| `cat` | Quick file view |
+| `less` | Scroll logs |
+| `head` | First lines |
+| `tail` | Last lines |
+| `tail -f` | Live log monitoring |
+| `grep` | Search in logs/configs |
+| `wc` | Count lines |
+| `sort` | Sort output |
+| `uniq` | Remove duplicates |
+| `cut` | Extract columns |
+| `awk` | Structured parsing |
+| `sed` | Stream editing |
 
-Server troubleshooting
+DevOps work heavily involves:
+- Log analysis
+- Config parsing
+- Output filtering
+- Automation scripting
 
-Deployment scripts
+---
 
-📄 File Viewing & Text Processing
-Command	Use Case
-cat	Quick file view
-less	Scroll logs
-head	First lines
-tail	Last lines
-tail -f	Live log monitoring
-grep	Search in logs/configs
-wc	Count lines
-sort	Sort output
-uniq	Remove duplicates
-cut	Extract columns
-awk	Structured parsing
-sed	Stream editing
-Why this matters:
+## 🔐 Permissions & Ownership
 
-DevOps work = log analysis + config parsing + automation
-
-You will constantly:
-
-Debug logs
-
-Filter errors
-
-Parse output from APIs
-
-Manipulate configuration files
-
-🔐 Permissions & Ownership
-Command	Why Important
-chmod	Change permissions
-chown	Change ownership
-id	Check user
-whoami	Current user
+| Command | Why Important |
+|----------|---------------|
+| `chmod` | Change permissions |
+| `chown` | Change ownership |
+| `id` | Check user |
+| `whoami` | Current user |
 
 Used in:
+- Docker containers
+- Deployment fixes
+- SSH troubleshooting
+- CI permission issues
 
-Docker containers
+---
 
-Deployment issues
+## ⚙️ Process & System Monitoring
 
-SSH troubleshooting
-
-CI permission fixes
-
-⚙️ Process & System Monitoring
-Command	Use Case
-ps	Process status
-top	Live system usage
-htop	Better top (if installed)
-kill	Stop processes
-free	Memory usage
-df	Disk space
-du	Disk usage
-uptime	System load
-uname -a	OS info
+| Command | Use Case |
+|----------|----------|
+| `ps` | Process status |
+| `top` | Live system usage |
+| `htop` | Enhanced monitoring (if installed) |
+| `kill` | Stop processes |
+| `free` | Memory usage |
+| `df` | Disk space |
+| `du` | Disk usage |
+| `uptime` | System load |
+| `uname -a` | OS info |
 
 Critical for:
+- Server troubleshooting
+- CPU debugging
+- Memory leak detection
+- Production incidents
 
-Server troubleshooting
+---
 
-High CPU debugging
+## 🌐 Networking (Very Important)
 
-Memory leak detection
+| Command | Use Case |
+|----------|----------|
+| `curl` | API testing |
+| `wget` | Download files |
+| `ping` | Connectivity test |
+| `netstat` / `ss` | Port usage |
+| `ip` | Network info |
+| `ssh` | Remote access |
+| `scp` | Secure file copy |
 
-Production incidents
+DevOps involves distributed systems — networking knowledge is essential.
 
-🌐 Networking (Very Important for DevOps)
-Command	Use Case
-curl	API testing
-wget	Download files
-ping	Connectivity test
-netstat / ss	Port usage
-ip	Network info
-ssh	Remote access
-scp	Secure copy
+---
 
-DevOps = distributed systems → networking is essential.
+## 📦 Package Management
 
-📦 Package Management
+Depends on distribution:
 
-Depends on distro:
-
-Ubuntu/Debian → apt
-
-RHEL/CentOS → yum / dnf
+- Ubuntu/Debian → `apt`
+- RHEL/CentOS → `yum` / `dnf`
 
 Used for:
+- Installing dependencies
+- Provisioning servers
+- Docker image builds
 
-Installing dependencies
+---
 
-Provisioning servers
+# 🥈 Tier 2 — Very Important (Used Weekly)
 
-Building Docker images
+## 🧰 Archiving & Compression
 
-🥈 Tier 2 — Very Important (Used Weekly)
-🧰 Archiving & Compression
-Command	Purpose
-tar	Archive files
-gzip	Compress
-zip	Zip files
-
-Used in:
-
-Backups
-
-Artifact packaging
-
-CI/CD exports
-
-🔄 Redirection & Pipes (CRITICAL Concept)
-
-Not commands — but heavily used:
-
->
->>
-|
-2>
-
-Example:
-
-grep ERROR app.log | sort | uniq
-
-Understanding pipes is more important than memorizing commands.
-
-🧪 Environment Variables
-export VAR=value
-echo $VAR
-env
+| Command | Purpose |
+|----------|----------|
+| `tar` | Archive files |
+| `gzip` | Compress files |
+| `zip` | Zip archives |
 
 Used in:
+- Backups
+- Artifact packaging
+- CI/CD exports
 
-CI pipelines
+---
 
-Docker
+## 🔄 Redirection & Pipes (CRITICAL Concept)
 
-Kubernetes
-
-Secrets handling
-
-🥉 Tier 3 — Useful for Automation & Advanced Work
-Command	Why
-xargs	Batch processing
-watch	Monitor command
-crontab	Scheduling jobs
-systemctl	Manage services
-journalctl	View system logs
-
-Especially relevant for:
-
-Systemd-based systems
-
-Service debugging
-
-Production servers
-
-📊 Pareto Analysis Summary
-If you master ONLY these categories:
-
-File management
-
-Text processing (grep, awk, sed)
-
-Process monitoring
-
-Networking (curl, ssh)
-
-Permissions
-
-You will cover roughly 70–80% of real DevOps Linux tasks.
-
-🔥 Most Important 10 Commands for DevOps
-
-If forced to reduce further:
-
-ls
-cd
-grep
-find
-tail
-curl
-ssh
-chmod
-ps
-df
-
-These alone handle a large portion of daily operational work.
-
-🚀 How DevOps Actually Uses Linux
-
-Daily activities typically include:
-
-Reading logs
-
-Restarting services
-
-Checking disk/memory
-
-Testing APIs
-
-Fixing permissions
-
-Searching configs
-
-Running scripts
-
-Connecting to remote servers
-
-Not kernel development. Not obscure commands.
+Operators:
