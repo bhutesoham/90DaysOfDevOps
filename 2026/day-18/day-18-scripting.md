@@ -1,12 +1,59 @@
 ### Task 1 - Basic Functions
 
+```bash
+#!/bin/bash
+
+
+greet(){
+
+	echo "Hello,$1"
+
+}
+
+greet $1
+
+```
+
 ### Task 2 - Functions with return value
+
+```bash
+#!/bin/bash
+
+
+
+check_disk(){
+
+df -h
+
+}
+
+check_memory(){
+
+free -h
+
+}
+
+check_disk
+check_memory
+```
 
 ### Task 3 - Strict Mode - set -euo pipefail
 
-- `set -e` → exit on error
-- `set -u` → error on undefined variables
-- `set -o pipefail` → pipeline fails if any command fails
+```bash
+#!/bin/bash
+
+set -euo pipefail
+
+name="SOHAM"
+
+echo "Hello, $name"
+
+mkdir devops
+echo "Directory already exists"
+
+cat hello.txt | grep "Success"
+echo "Script ends"
+```
 
 ### Task 4 - Local Variables
 
