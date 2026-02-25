@@ -97,3 +97,7 @@ touch hello.txt
 ```bash
 if [ "$EUID" -ne 0 ]; then echo "Run as root"; exit 1; fi
 ```
+
+- Difference between `$\*` and `$@` - The collection of arguments in `$\*` is treated as one text string , whereas the collection of arguments in `$@` is treated as seperate strings
+
+- different notations `$#` saves the total arguments passed, `$@` retruns all the arguments passed, `$?` return the vairbale holding the exit code of last command.

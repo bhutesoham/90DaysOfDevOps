@@ -136,3 +136,22 @@ create_archive(){
                                                                                     10,1          Top
 
 ```
+
+### Hints
+
+- `|` : Connects commands
+- `>`: Writes (overwrites) to file
+- `>>`: Appends to file
+- `2>`: Redirects error message
+- `-e`: Files exists (any type) ,
+- `-s`:Files exists and not empty
+- `-d`: Directory exists
+- `-z`: Strin is empty
+
+        ```bash
+        if [[ -z "$API_KEY" ]];then
+                echo "Error:API key is missing...!!"
+                exit 1
+        fi
+        echo "Connecting using key: $API_KEY"
+        ```

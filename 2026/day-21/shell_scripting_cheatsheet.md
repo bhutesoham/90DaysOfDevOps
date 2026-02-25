@@ -492,14 +492,18 @@ fi
 
    ```
 
-5. `set -x` — debug mode (trace execution)
+5. `set -x` — debug mode (trace execution) .Prints every command before executing it
 
    ```bash
    #!/bin/bash
+   # Turn on debugging
    set -x
 
    name="John"
    echo "Hello $name"
+
+   # Turn off debugging
+   set +x
    ```
 
 6. Trap — `trap 'cleanup' EXIT`
