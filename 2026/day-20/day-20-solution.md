@@ -146,7 +146,7 @@ create_archive(){
 - `-e`: Files exists (any type) ,
 - `-s`:Files exists and not empty
 - `-d`: Directory exists
-- `-z`: Strin is empty
+- `-z`: String is empty
 
         ```bash
         if [[ -z "$API_KEY" ]];then
@@ -155,3 +155,5 @@ create_archive(){
         fi
         echo "Connecting using key: $API_KEY"
         ```
+
+- `grep -i "welcome to nginx!" /` - this will help to find welcome to nginx , if exists inside any file location in your system
