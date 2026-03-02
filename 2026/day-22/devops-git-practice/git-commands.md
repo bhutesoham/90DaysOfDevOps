@@ -6,6 +6,10 @@
 
 - `git config --list` - to verify the current configuration of git on host
 
+- `git config --global user.name "<name>"` - sets the global username for Git commits
+
+- `git config --global user.email "<email>"` - Sets the global emailf ro Git commits
+
 - `git checkout -b <branch_name>` - Checkout to new branch
 
 - `git remote -v` - show the remote origin URL
@@ -31,6 +35,14 @@
 - `git push origin <branch_name>` -Push your local changes to remote branch
 
 - `git pull origin <branch name>` - Pull your remote changes to local branch
+
+- `git rebase <branch_name>` or `git rebase -i <commit_hash>` - Reapplies commites on top of another base branch. It rewrties history, so avoid using it on shared branches
+
+- `git stash ` - Save the changes to stash (temporarily)
+
+- `git pop` - Recall the changes dumped in stash
+
+- `git cherry-pick <commit_hash>` - Applies a specific commit from another branch to the current branch
 
 ### View changes -
 
