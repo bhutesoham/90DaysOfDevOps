@@ -1,0 +1,62 @@
+# # Task 1
+# services:
+#   website:
+#     build: .
+#     container_name: nginx
+#     ports:
+#       - "80:80"
+
+#Task 2
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - 3306:3306
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-pTest@123",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - my-new-network
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: mysql:3306
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - my-new-network
+
+# docker network create
+networks:
+  my-new-network:
+    driver: bridge
+
+# docker volume create
+volumes:
+  mysql-data:

@@ -1,0 +1,13 @@
+FROM nginx:alpine
+
+# Install Nginx (no sudo needed)
+RUN apk add --no-cache nginx
+
+# Set working directory
+WORKDIR /app
+
+# Copy your HTML file
+COPY index.html /usr/share/nginx/html/index.html
+
+# Expose default Nginx port
+EXPOSE 80
