@@ -1,0 +1,77 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    labels:
+      com.example.service: "mysql"
+      com.example.role: "database"
+      com.example.owner: "soham"
+    environment:
+      MYSQL_ROOT_PASSWORD: Test@123
+      MYSQL_DATABASE: testdb
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: ["CMD","mysqladmin","ping","-h","localhost","-u","root","-pTest@123"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    restart: on-failure
+    networks:
+      - three-tier-network
+    volumes:
+      - mysql-data:/var/lib/mysql
+    
+  webapp:
+    build: .
+    container_name: webapp
+    labels:
+      com.example.service: "webapp"
+      com.example.role: "application"
+      com.example.owner: "soham"
+    ports:
+      - "3000:3000"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Test@123
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - three-tier-network
+    restart: on-failure
+  
+  redis:
+    image: redis:latest
+    container_name: redis
+    labels:
+      com.example.service: "redis"
+      com.example.role: "cache"
+      com.example.owner: "soham"
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    networks:
+      - three-tier-network
+    restart: on-failure
+
+networks:
+  three-tier-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+    labels:
+      com.example.type: "persistent-storage"
+      com.example.owner: "soham"
