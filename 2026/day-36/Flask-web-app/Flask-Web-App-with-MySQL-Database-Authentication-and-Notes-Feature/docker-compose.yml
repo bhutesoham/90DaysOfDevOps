@@ -1,0 +1,48 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD","mysqladmin","ping","-h","localhost","-u","root","-ptest123"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    volumes:
+      - mysql-data:/var/lib/mysql
+    restart: on-failure
+    networks:
+      - todo-notes
+  
+  flaskapp:
+    image: sohamrb/flaskapp:v2  # Use the Docker Hub image
+    container_name: flaskwebapp
+    ports:
+      - 5000:5000
+    environment:
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - todo-notes
+    restart: on-failure
+
+networks:
+  todo-notes: 
+    driver: bridge
+
+volumes:
+  mysql-data:
+    labels:
+      type: "persistant-storage"
+      owner: "soham"
