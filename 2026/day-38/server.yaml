@@ -1,0 +1,22 @@
+server:
+  name:
+  ip:
+  port:
+database:
+  host:
+  name:
+  credentials:
+    user:
+    password:
+
+startup_script_literal: |
+  #!/bin/bash
+  echo "Starting server"
+  sudo systemctl start nginx
+  echo "Server started"
+
+startup_script_folded: >
+  #!/bin/bash
+  echo "Starting server"
+  sudo systemctl start nginx
+  echo "Server started"

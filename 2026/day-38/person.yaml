@@ -1,0 +1,11 @@
+name: soham
+role: devops engineer
+experience_years: 2
+learning: true
+tools: 
+  - linux
+  - aws
+  - docker
+  - kubernetes
+  - fast API
+hobbies: [hiking, cycling, training, travelling]
