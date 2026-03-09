@@ -1,0 +1,31 @@
+name: Hello workflow
+on:
+  push: 
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code 
+        uses: actions/checkout@v4 #Action to clone repo
+
+      - name: Print Hello
+        run: echo "Hello from GitHub Actions" 
+      
+      - name: Set current date
+        run: echo "NOW=$(date '+%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV
+
+      - name: Print current date and time
+        run: echo "The current time is ${{ env.NOW }}"
+
+      - name: Print current git branch
+        run: echo "Current git branch is ${{ github.ref_name }}"
+
+      - name: List the files in the repo
+        run: |
+          #!/bin/bash
+          ls -la
+
+      - name: Print OS using context
+        run: echo "The operating system is ${{ runner.os }}"
