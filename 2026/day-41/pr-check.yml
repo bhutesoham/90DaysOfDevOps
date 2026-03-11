@@ -1,0 +1,15 @@
+name: pr-check
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  raise-pr:
+    runs-on: ubuntu-latest
+    steps:  
+        - name: Code checkout from Github
+          uses: actions/checkout@v4
+
+        - name: run the PR check for merging branch
+          run: echo "PR check running for branch ${{ github.head_ref }}"
