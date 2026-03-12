@@ -1,0 +1,64 @@
+name: github-runners
+
+on:
+  push:
+    branches:
+
+jobs:
+  mac-runner:
+    runs-on: macos-latest
+    
+    steps:
+      - name: Name of the OS
+        run: echo "Runner OS is ${{ runner.os }}"
+
+      - name: Runner hostname
+        run: |
+          echo "Runner name :"
+          hostname
+
+
+      - name: Current user
+        run: echo "Current user who is running the job ${{ github.actor }}"
+
+  windows-runner:
+    runs-on: windows-latest
+    
+    steps:
+      - name: Name of the OS
+        run: echo "Runner OS is ${{ runner.os }}"
+
+      - name: Runner hostname
+        run: |
+          echo "Runner name :"
+          hostname
+
+      - name: Current user
+        run: echo "Current user who is running the job ${{ github.actor }}"
+
+  ubuntu-runner:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Name of the OS
+        run: echo "Runner OS is ${{ runner.os }}"
+
+      - name: Runner hostname
+        run: |
+          echo "Runner name :"
+          hostname
+          echo "Docker version:"
+          docker --version
+          echo "python version:"
+          python --version
+          echo "git version:"
+          git --version
+          echo "Node version"
+          node -v
+
+      - name: Path for preinstalled softwares
+        run: echo "path to find preinstalled versions ${{ runner.tool_cache }}"
+          
+
+      - name: Current user
+        run: echo "Current user who is running the job ${{ github.actor }}"
