@@ -1,0 +1,29 @@
+name: Smart-Pipeline
+
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check linting
+        run: echo "Check linting"
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test code
+        run: echo "testing code"
+
+  summary:
+    needs: [test, lint]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print the branch name & print the commit
+        run: |
+          echo "Pushing on ${{ github.ref }}"
+          echo "Commit message ${{ github.event.commits[0].message }}"

@@ -1,0 +1,30 @@
+name: Step-Configuration
+
+on:
+  push:
+  pull_request: # by default it will run on push and pull requests
+
+jobs:
+  Main-branch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run when branch is Main
+        continue-on-error: true # even if this step fails actions should continue to next step
+        if: github.ref == 'refs/heads/main' # condition that it should only run when the branch is main
+
+        run: |
+          echo "This is step 1 from main branch"
+          exit 1
+
+      - name: Also run when previous step is failed
+        if: always() # this step will run even if previous failed
+        run: echo "Previous step failed so this runs"
+
+  Run-on-PE:
+    if: github.event_name == 'push' # run the job only if it is a pull request
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run on push event only
+        run: echo "This only runs on direct pushes, not PRs"

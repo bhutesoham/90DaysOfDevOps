@@ -1,15 +1,6 @@
-# Day 43 – Jobs, Steps, Env Vars & Conditionals
-
 ## Task
 
 Today you learn how to **control the flow** of your pipeline — multi-job workflows, passing data between jobs, environment variables, and running steps only when certain conditions are met.
-
----
-
-## Expected Output
-
-- New workflow files in your `github-actions-practice` repo
-- A markdown file: `day-43-jobs-steps.md`
 
 ---
 
@@ -41,7 +32,8 @@ In a new workflow, use environment variables at 3 levels:
 Print all three in a single step and verify each is accessible.
 
 Then use a **GitHub context variable** — print the commit SHA and the actor (who triggered the run).
-`multi-job.yml`
+
+- `multi-job.yml`
 
 ---
 
@@ -52,6 +44,8 @@ Then use a **GitHub context variable** — print the commit SHA and the actor (w
 3. Pass the value using `outputs:` and `needs.<job>.outputs.<name>`
 
 Write in your notes: Why would you pass outputs between jobs?
+
+- In some cases it is required to store the value of the preivous job and use it for the future calculations or as a condition . Then it is required to pass the outputs between the jobs `Job-output.yml`
 
 ---
 
@@ -64,6 +58,9 @@ In a workflow, add:
 3. A job that only runs on **push** events, not on pull requests
 4. A step with `continue-on-error: true` — what does this do?
 
+- It allows a step to fail without stopping the workflow. The job continues executing subsequent steps even if that step returns an error.
+- `step-config.yml`
+
 ---
 
 ### Task 5: Putting It Together
@@ -75,38 +72,3 @@ Create `.github/workflows/smart-pipeline.yml` that:
 3. Has a `summary` job that runs after both, prints whether it's a `main` branch push or a feature branch push, and prints the commit message
 
 ---
-
-## Hints
-
-- Job dependency: `needs: [job-name]`
-- Set output: `echo "date=$(date)" >> $GITHUB_OUTPUT`
-- Read output: `${{ needs.job-name.outputs.date }}`
-- Conditionals: `if: github.ref == 'refs/heads/main'`
-- Commit message: `${{ github.event.commits[0].message }}`
-
----
-
-## Documentation
-
-Create `day-43-jobs-steps.md` with:
-
-- Key workflow snippets
-- What `needs:` and `outputs:` do in your own words
-
----
-
-## Submission
-
-1. Add `day-43-jobs-steps.md` to `2026/day-43/`
-2. Commit and push to your fork
-
----
-
-## Learn in Public
-
-Share the dependency chain diagram from your multi-job workflow on LinkedIn.
-
-`#90DaysOfDevOps` `#DevOpsKaJosh` `#TrainWithShubham`
-
-Happy Learning!
-**TrainWithShubham**

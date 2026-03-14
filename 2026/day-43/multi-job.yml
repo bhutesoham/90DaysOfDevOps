@@ -1,0 +1,46 @@
+name: Multi-Job-Dependency
+env:
+  APP_NAME: myapp
+on:
+  workflow_dispatch:
+
+jobs:
+  Build:
+    env:
+      ENVIRONMENT: staging
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Builing the app
+        run: |
+          echo "Building the app"
+          echo "ENVIRONMENT is ${ENVIRONMENT}"
+
+  Test:
+    runs-on: ubuntu-latest
+    needs: [Build]
+    steps:
+      - name: Running the test
+        run: echo "Running tests"
+
+      - name: Set env variable
+        env:
+          VERSION: 1.0.0
+        run: echo "version is ${VERSION}"
+
+      - name: Print version
+        run: echo "version is ${VERSION}"
+
+  Deploy:
+    runs-on: ubuntu-latest
+    needs: [Test]
+    steps:
+      - name: Running the test
+        run: echo "Deploying"
+
+      - name: Print env variables
+        run: |
+          echo "App name is ${APP_NAME}"   
+          echo "ENVIRONMENT is ${ENVIRONMENT}"
+          echo "version is ${VERSION}"
+        ## Adding environment and version here will not work
