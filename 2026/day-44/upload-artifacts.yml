@@ -1,0 +1,29 @@
+name: upload-artifacts
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-logs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate report
+        run: echo "Report content" > report.txt # writes to report.txt
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-report
+          path: report.txt
+
+  read-logs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: my-report
+          path: download-report
+
+      - name: Read and print the content
+        run: cat download-report/report.txt

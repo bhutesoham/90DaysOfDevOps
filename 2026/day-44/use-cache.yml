@@ -1,0 +1,35 @@
+name: use-cache
+
+on:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.13", "3.12"]
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: setup python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-${{ matrix.python-version }}-
+          # Cache saved with key: Linux-pip-3.10-94e69db670a7aaa67050858651b85015bc060b293dca52795367b8ce6fe23d1b
+
+      - name: install dependencies
+        run: pip install -r requirements.txt
+
+      - name: run linter
+        run: flake8 app.py
