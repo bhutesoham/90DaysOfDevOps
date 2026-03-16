@@ -92,7 +92,7 @@ touch hello.txt
 
 - The EUID is used to determine the permissions and access controls that a process has when interacting with system resources, such as files, directories, and devices. EUID of sudo is "zero"
 
-- you can add exit 1 after the (IF) statment id you do not want the else part
+- you can add exit 1 after the (IF) statment when you do not want the else part
 
 ```bash
 if [ "$EUID" -ne 0 ]; then echo "Run as root"; exit 1; fi
