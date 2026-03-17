@@ -1,0 +1,49 @@
+name: reusable-actions
+on:
+  workflow_call:
+    inputs:
+      app_name:
+        required: true
+        type: string
+      environment: # Key name for the input
+        description: "Environment to run against"
+        required: true
+        default: "staging"
+        type: string
+    secrets:
+      docker_token:
+        required: true
+
+    outputs:
+      build_version:
+        value: ${{ jobs.reusable-build.outputs.build_version }}
+
+jobs:
+  reusable-build:
+    runs-on: ubuntu-latest
+    outputs:
+      build_version: ${{ steps.set_version.outputs.build_version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Building app for environment
+        run: echo "Building ${{ inputs.app_name }} for ${{ inputs.environment }}"
+
+      - name: Check if the token exists
+        env:
+          DOCKER_TOKEN: ${{ secrets.docker_token }}
+        run: |
+          if [ -n "$DOCKER_TOKEN" ];then
+           echo "Docker token is set:true"
+          else
+           echo "Docker token is set:false"
+          fi
+
+      - name: Set build version
+        id: set_version
+        run: |
+          echo "build_version=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+
+      - name: Print build version
+        run: echo "Build version is ${{ steps.set_version.outputs.build_version }}"

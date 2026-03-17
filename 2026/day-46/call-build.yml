@@ -1,0 +1,25 @@
+name: call-build
+
+on:
+  push:
+    branch: [main]
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      app_name: "dependable-workflow-app"
+      environment: "production"
+    secrets:
+      docker_token:
+        ${{ secrets.DOCKERHUB_TOKEN }}
+        # it depends what the user passes here,
+        # because in github docker_token does not exist but DOCKERHUB_TOKEN do exist
+
+  Print_version:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Access build version
+        run: echo "Version is ${{ needs.build.outputs.build_version }}"

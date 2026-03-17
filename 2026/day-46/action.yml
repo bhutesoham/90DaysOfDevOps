@@ -1,0 +1,34 @@
+name: "Hello Greet Action"
+description: "Greets someone and says hello"
+inputs:
+  name:
+    description: "Who to greet"
+    required: true
+    default: "World"
+  language:
+    description: "Greeting language"
+    required: false
+    default: "en"
+
+outputs:
+  greeted:
+    value: ${{ steps.set_output.outputs.greeted }}
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Print the greeting in english
+      shell: bash
+      run: echo "Hello ${{ inputs.name }}!"
+
+    - name: Print current date and Runner OS
+      shell: bash
+      run: |
+        echo "Current date is $(date '+%Y-%m-%d-%H-%M-%S')"
+        echo "Runner OS is $RUNNER_OS"
+
+    - name: Set an output
+      id: set_output
+      shell: bash
+      run: echo "greeted=true" >> $GITHUB_OUTPUT
