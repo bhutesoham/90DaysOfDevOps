@@ -81,7 +81,8 @@ Push again — watch the new run.
 
 Write in your notes: What does a failed pipeline look like? How do you read the error?
 
-- Under Github GUI -> Actions the pipeline shows red cross if the yml files is failed to deploy. In other case it shows green tick when it is succesful. To read the error you can click on the workflow runs -> job (greet) -> navigate to the failed step
+- Under Github GUI -> Actions the pipeline shows red cross if the yml file fails to deploy. In other case it shows green tick when it is successful. To read the error you can click on the workflow runs -> job (greet) -> navigate to the failed step
   ![alt text](image.png)
   ![alt text](image-1.png)
+
 ---
