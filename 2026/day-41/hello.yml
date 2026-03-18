@@ -1,7 +1,7 @@
 name: Hello workflow
 on:
   schedule:
-    - cron: '0 0 * * *' #min hrs dayofmonth month dayof week
+    - cron: '0 0 * * *' #min hrs dayofmonth month dayofweek
 
 jobs:
   greet:
@@ -26,7 +26,7 @@ jobs:
       - name: List the files in the repo
         run: |
         #!/bin/bash
-        ls -la
+         ls -la
 
       - name: Print OS using context
         run: echo "The operating system is ${{ runner.os }}"
