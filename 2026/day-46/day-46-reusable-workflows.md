@@ -103,7 +103,7 @@ Fill this in your notes:
 | Triggered by                 | `workflow_call`                       | `uses:` in a step                |
 | Can contain jobs?            | Yes(multiple jobs)                    | No                               |
 | Can contain multiple steps?  | Yes                                   | Yes                              |
-| Lives where?                 | .github/workflows/                    | .github/actions                  |
+| Lives where?                 | .github/workflows/                    | .github/actions/                 |
 | Can accept secrets directly? | Yes                                   | No                               |
 | Best for                     | Full CI/CD pipelines, multi job logic | Resuable step logic within a job |
 
