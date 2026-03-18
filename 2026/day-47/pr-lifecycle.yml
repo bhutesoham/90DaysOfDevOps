@@ -1,0 +1,32 @@
+name: pr-lifecycle-events
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+jobs:
+  pr-lifecycle:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the closed
+        uses: actions/checkout@v4
+
+      - name: Print event type
+        run: echo "Event type is ${{ github.event.action }}"
+
+      - name: Print PR title
+        run: echo "PR title is ${{ github.event.pull_request.title }}"
+
+      - name: Print PR author
+        run: echo "PR author is ${{ github.event.pull_request.user.login }}"
+
+      - name: Print source and target branch
+        run: |
+          echo "Merging from ${{ github.head_ref }}"
+          echo "Merging to ${{ github.base_ref }}"
+
+      - name: Run the step if PR is merged
+        # This condition ensures the job only runs if the PR was merged
+        if: github.event.action == 'closed' && github.event.pull_request.merged == true
+        run: echo "PR successfully merged"

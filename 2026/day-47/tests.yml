@@ -1,0 +1,18 @@
+name: Run Tests # This should run first
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          # Replace with your actual test command
+          exit 0

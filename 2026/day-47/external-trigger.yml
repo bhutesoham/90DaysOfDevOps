@@ -1,0 +1,20 @@
+name: External Triggered Deployment
+
+on:
+  repository_dispatch:
+    types: [deploy-request]
+
+jobs:
+  handle-external-event:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print event payload
+        run: |
+          echo "Received external deploy request"
+          echo "Environment: ${{ github.event.client_payload.environment }}"
+
+      - name: Optional deployment step
+        run: |
+          ENV="${{ github.event.client_payload.environment }}"
+          echo "Would deploy to $ENV now..."

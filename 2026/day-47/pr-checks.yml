@@ -1,0 +1,54 @@
+name: check-pull_request
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+jobs:
+  file-size-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v4
+
+      - name: Fails if any file in the PR is larger than 1 MB
+        id: check_size
+        uses: pelotech/github-action-file-size-checker@v0.1.2
+        with:
+          max_file_size_kib: 1000
+
+  branch-name-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Reads the reference head
+        run: echo "Branch name is ${{ github.head_ref }}"
+
+      - name: Fails if not pattern is followed
+        run: | # Allowed pattern (feature/*, fix/*, or docs/*)
+          PATTERN="^(feature|fix|docs)/.*$"
+          BRANCH_NAME="${{ github.head_ref }}"
+          if [[ ! '$BRANCH_NAME' =~ $PATTERN ]]; then
+           echo "Error: branch name '$BRANCH_NAME' does not match the required pattern $PATTERN"
+           exit 1
+          fi
+          echo "Branch name $BRANCH_NAME is valid."
+      # OR use standard action from marketplace
+      # - name: Check Branch Name
+      #   uses: [GitOpsLovers/gha-branch-name-checker@v2](https://github.com/GitOpsLovers/gha-branch-name-checker)
+      #   with:
+      #     branch_pattern: 'feature|hotfix|chore' # Your regex pattern
+      #     fail_if_invalid_branch_name: 'true'
+
+  pr-body-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Read the PR body
+        run: echo "${{ github.event.pull_request.body }}"
+
+      - name: Warn if PR description is empty
+        if: github.event.pull_request.body == ' ' || github.event.pull_request.body == null
+        run: |
+          echo "Warning: The pull request body is empty"
