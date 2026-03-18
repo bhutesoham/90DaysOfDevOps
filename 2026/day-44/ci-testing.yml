@@ -1,0 +1,23 @@
+name: build-CI-pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: change file permission
+        run: chmod +x Addition.sh
+
+      - name: Run the script
+        run: ./Addition.sh
+
+      - name: Check script behaviour
+        env:
+          FAIL_PIPELINE: true
+        run: ./Addition.sh
