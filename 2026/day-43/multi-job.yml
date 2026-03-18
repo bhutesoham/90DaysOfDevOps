@@ -29,7 +29,7 @@ jobs:
         run: echo "version is ${VERSION}"
 
       - name: Print version
-        run: echo "version is ${VERSION}"
+        run: echo "version is ${VERSION}" # $VERSION is empty string becuase it is a env variable for previous step
 
   Deploy:
     runs-on: ubuntu-latest

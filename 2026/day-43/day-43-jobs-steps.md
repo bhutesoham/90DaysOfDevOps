@@ -45,7 +45,7 @@ Then use a **GitHub context variable** — print the commit SHA and the actor (w
 
 Write in your notes: Why would you pass outputs between jobs?
 
-- In some cases it is required to store the value of the preivous job and use it for the future calculations or as a condition . Then it is required to pass the outputs between the jobs `Job-output.yml`
+- In some cases it is required to store the value of the preivous job and use it for the future calculations or as a condition . For this it is required to pass the outputs between the jobs (`Job-output.yml`)
 
 ---
 
