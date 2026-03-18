@@ -9,7 +9,6 @@ Write in your notes:
 - If multiple people from the team push the code to repo , then it cause merge conflicts
 - Each one the team member is needed to have all the tests set right locally or on server
 - every time a change happens it first has to be merged in `main`, then only rest of the team can work on it
--
 
 2. What does "it works on my machine" mean and why is it a real problem?
 
@@ -62,7 +61,7 @@ A pipeline has these parts — write what each one does:
 - **Step** — a single command or action inside a job
   - A single cmd or action inside a job such as running a script , installing dependencies or executing tests
 - **Runner** — the machine that executes the job
-  - The machine ir agent that executes the pipeline jobs and steps. It can be a server, VM or container.
+  - The machine or agent that executes the pipeline jobs and steps. It can be a server, VM or container.
 - **Artifact** — output produced by a job
   - Output/files produced by a job that can be stored or used by later stages in the pipeline
 
@@ -109,10 +108,10 @@ jobs:
    - What triggers it? -> it does not get trigged automatically, needs to be run manually `workflow-dispatch`
    - How many jobs does it have? -> it has 1 job `pull-request`
    - What does it do? (best guess)
-   - Checks out the repository and starter workflows
-   - Sets up Go environment
-   - Creates a new branch
-   - Runs a Go script to update workflow files
-   - Shows git status, likely preparing changes to create a pull request with updated workflows.
+     - Checks out the repository and starter workflows
+     - Sets up Go environment
+     - Creates a new branch
+     - Runs a Go script to update workflow files
+     - Shows git status, likely preparing changes to create a pull request with updated workflows.
 
 ---
