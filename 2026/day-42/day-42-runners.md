@@ -1,6 +1,7 @@
 ## Challenge Tasks
 
 ### Task 1: GitHub-Hosted Runners
+
 1. Create a workflow with 3 jobs, each on a different OS:
    - `ubuntu-latest`
    - `windows-latest`
@@ -12,11 +13,13 @@
 3. Watch all 3 run in parallel
 
 Write in your notes: What is a GitHub-hosted runner? Who manages it?
+
 - github hosted runners are the default runners provided by github. Github manages them in the background
 
 ---
 
 ### Task 2: Explore What's Pre-installed
+
 1. On the `ubuntu-latest` runner, run a step that prints:
    - Docker version
    - Python version
@@ -27,9 +30,11 @@ Write in your notes: What is a GitHub-hosted runner? Who manages it?
 Write in your notes: Why does it matter that runners come with tools pre-installed?
 
 - in order to run certain commands like linting or building container it is required that the runners should have some set of basic softwares installed
+
 ---
 
 ### Task 3: Set Up a Self-Hosted Runner
+
 1. Go to your GitHub repo → Settings → Actions → Runners → **New self-hosted runner**
 2. Choose Linux as the OS
 3. Follow the instructions to download and configure the runner on:
@@ -42,6 +47,7 @@ Write in your notes: Why does it matter that runners come with tools pre-install
 ---
 
 ### Task 4: Use Your Self-Hosted Runner
+
 1. Create `.github/workflows/self-hosted.yml`
 2. Set `runs-on: self-hosted`
 3. Add steps that:
@@ -51,24 +57,29 @@ Write in your notes: Why does it matter that runners come with tools pre-install
 4. Trigger it and watch it run on your own hardware
 
 **Verify:** Check your machine — is the file there?
+
 - you can refer to `self-hosted.yml`
+
 ---
 
 ### Task 5: Labels
+
 1. Add a **label** to your self-hosted runner (e.g., `my-linux-runner`)
 2. Update your workflow to use `runs-on: [self-hosted, my-linux-runner]`
 3. Trigger it — does it still pick up the job?
 
 Write in your notes: Why are labels useful when you have multiple self-hosted runners?
-- In case of multiple self hosted runners it is must to have proper labelling , because this tells github action which self hosted runner to use. 
+
+- In case of multiple self hosted runners proper labelling is must to have, because this tells github action which self hosted runner to use for a particular job.
+
 ---
 
-| | GitHub-Hosted | Self-Hosted |
-|---|---|---|
-| Who manages it? | github | user |
-| Cost | 2000 run/month free | standard cost for ec2 |
-| Pre-installed tools | there are some | user has to install |
-| Good for | regular actions  | custom actions |
-| Security concern | managed by github | user has to take care |
+|                     | GitHub-Hosted       | Self-Hosted           |
+| ------------------- | ------------------- | --------------------- |
+| Who manages it?     | github              | user                  |
+| Cost                | 2000 run/month free | standard cost for ec2 |
+| Pre-installed tools | there are some      | user has to install   |
+| Good for            | regular actions     | custom actions        |
+| Security concern    | managed by github   | user has to take care |
 
 ---
