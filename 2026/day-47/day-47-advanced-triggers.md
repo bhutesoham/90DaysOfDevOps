@@ -51,8 +51,8 @@ Write in your notes:
 - The cron expression for: first day of every month at midnight
   - `0 0 1 * *`
 - Why GitHub says scheduled workflows may be delayed or skipped on inactive repos
-- Github mention this because , schedule jobs are low priority. During high load, github may delay execution , batch jobs.
-- For inactive repository scheduled workflows may be disabled automatically or not triggered relibly
+  - Github mention this because , schedule jobs are low priority. During high load, github may delay execution , batch jobs.
+  - For inactive repository scheduled workflows may be disabled automatically or not triggered relibly
 
   **Important:** Also add `workflow_dispatch` so you can test it manually without waiting for the schedule.
 

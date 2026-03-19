@@ -38,7 +38,7 @@ jobs:
       # - name: Check Branch Name
       #   uses: [GitOpsLovers/gha-branch-name-checker@v2](https://github.com/GitOpsLovers/gha-branch-name-checker)
       #   with:
-      #     branch_pattern: 'feature|hotfix|chore' # Your regex pattern
+      #     branch_pattern: 'feature|fix|docs' # Your regex pattern
       #     fail_if_invalid_branch_name: 'true'
 
   pr-body-check:
