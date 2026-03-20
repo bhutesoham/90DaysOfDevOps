@@ -1,0 +1,88 @@
+name: Docker build & push
+
+on:
+  workflow_call:
+    inputs:
+      image_name:
+        required: true
+        type: string
+
+      tag:
+        type: string
+        required: true
+
+    outputs:
+      image_url: # ← what the caller reads
+        value: ${{ jobs.docker-build-push.outputs.image_url }}
+
+jobs:
+  docker-build-push:
+    runs-on: ubuntu-latest
+
+    env:
+      DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
+      DOCKER_TAG: ${{ inputs.tag }}
+
+    outputs:
+      image_url: ${{ steps.set_url.outputs.image_url }} # ← feeds workflow_call output
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub PAT
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and tag image. # There also an alternate way for it (reusable generates SHA)
+        run: |
+          IFS=',' read -ra TAGS <<< "${{ inputs.tag }}"
+          BUILD_CMD="docker build"
+          for t in "${TAGS[@]}"; do
+            BUILD_CMD="$BUILD_CMD -t ${{ vars.DOCKERHUB_USER }}/${{ inputs.image_name }}:$t"
+          done
+          BUILD_CMD="$BUILD_CMD ."
+          eval $BUILD_CMD
+
+      - name: Trivy Scanner
+        uses: aquasecurity/trivy-action@0.35.0
+        with:
+          image-ref: ${{ vars.DOCKERHUB_USER }}/github-actions-capstone:latest # use latest which is always build
+          severity: "CRITICAL,HIGH"
+          exit-code: "1"
+          trivyignore: ${{ github.workspace }}/.trivyignore
+
+      - name: Save Trivy report as file # ← run scan again, output to file this time
+        if: always() # ← runs even if trivy found vulnerabilities
+        uses: aquasecurity/trivy-action@0.35.0
+        with:
+          image-ref: ${{ vars.DOCKERHUB_USER }}/github-actions-capstone:latest # use latest which is always build
+          severity: "CRITICAL,HIGH"
+          format: "table" # ← can also use "json" or "sarif"
+          output: "trivy-report.txt" # ← writes to this file
+          exit-code: "0" # ← don't fail here, already failed above
+
+      - name: Upload Trivy report as artifact
+        if: always() # ← upload even if scan failed
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-scan-report # ← name shown in GitHub UI under Artifacts
+          path: trivy-report.txt # ← file written by previous step
+          retention-days: 30 # ← how long GitHub keeps it
+
+      - name: Push all tags
+        run: |
+          IFS=',' read -ra TAGS <<< "${{ inputs.tag }}"
+          for t in "${TAGS[@]}"; do
+            docker push ${{ vars.DOCKERHUB_USER }}/${{ inputs.image_name }}:$t
+          done
+
+      - name: Output image URL
+        id: set_url
+        run: |
+          IMAGE_URL="https://hub.docker.com/r/${{ vars.DOCKERHUB_USER }}/${{ inputs.image_name }}"
+
+          echo "image_url=$IMAGE_URL" >> $GITHUB_OUTPUT    # ← stores for other jobs
+          echo "Full image URL: $IMAGE_URL"                # ← prints to logs
