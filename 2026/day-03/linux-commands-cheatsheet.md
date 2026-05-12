@@ -17,7 +17,7 @@
 4. rm ->Deletes files or directories.
       -r for recursive deletion (necessary for directories).
       -f to force deletion without prompts.
-5. cp -> copy the final from the given source to the destination
+5. cp -> copy the file from the given source to the destination
 6. touch -> Creates an empty file with the specified name if it doesn’t exist,
          or updates the modification and access time of the file if it does.
 8. chmod -> changes the permission of the file (read, write, execute)
