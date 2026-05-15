@@ -11,7 +11,7 @@
 
 [Describe any issues and how you solved them]
 
-- not able to access Nginx page evene if the service is running
+- not able to access Nginx page even if the service is running
 - location where nginx logs are stored
 - not able to copy the file from EC2 instance to local folder
 
