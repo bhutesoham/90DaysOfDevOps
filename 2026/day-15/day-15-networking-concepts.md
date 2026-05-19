@@ -51,9 +51,9 @@
 1. What does `/24` mean in `192.168.1.0/24`?
    - The number after the slash defines the network prefix, indicating how many bits are fixed. Smaller numbers (e.g., /16) provide larger ranges, while larger numbers (e.g., /32) define single IPs.
 2. How many usable hosts in a `/24`? A `/16`? A `/28`?
-   - /24 2 8 IP address
-   - /16 2 16 IP address
-   - /28 2 6 IP address
+   - /24 254 IP address
+   - /16 65534 IP address
+   - /28 14 IP address
 3. Explain in your own words: why do we need subnet?
    - We need subnet to break large, inefficient networks into smaller,manageable and secure subnetworks. It reduces congestion and enhances network performance
 
