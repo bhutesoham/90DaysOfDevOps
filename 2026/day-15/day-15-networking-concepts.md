@@ -14,7 +14,7 @@
   5. Rendering the webpage
 
 2. What are different record types ?
-   - A - s a fundamental type of DNS record. DNS A records map domain names to their corresponding IPv4 addresses, which are 32-bit numerical strings
+   - A - is a fundamental type of DNS record. DNS A records map domain names to their corresponding IPv4 addresses, which are 32-bit numerical strings
    - AAAA - also known as “quad-A” records, serve a similar purpose to A records but are used for mapping domain names to IPv6 addresses rather than IPv4. IPv6 addresses are 128-bit numerical strings, allowing for a much larger pool of unique addresses compared to IPv4’s 32-bit system.
    - CNAME - are used to map an alias or subdomain to another domain name. Instead of pointing directly to an IP address
    - MX - are used to specify the mail servers responsible for receiving e-mail on behalf of a domain. Instead of directing web traffic, MX records ensure that e-mail is routed to the appropriate mail server based on the domain name in the recipient’s e-mail address
